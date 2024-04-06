@@ -1,2 +1,2 @@
 # POTD
-daily coding questions
+daily coding answers from geeksforgeeks and leetcode
