@@ -1,3 +1,4 @@
+//JAVA SOLUTION
 public class Solution {
     public boolean checkValidString(String s) {
         int leftMin = 0, leftMax = 0;
