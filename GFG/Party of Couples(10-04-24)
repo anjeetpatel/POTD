@@ -4,7 +4,7 @@ You are given an integer array arr[] of size n, representing n number of people 
 
 NOTE: It is guarantee that there exist only one single person in the party.
 
-Example 1:
+Example 1: 
 
 Input: 
 n = 5
