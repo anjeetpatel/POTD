@@ -7,7 +7,7 @@ class Solution {
         while (i<j)
         {
             if(left_max <= right_max)
-            {
+            { 
                 sum+=(left_max-height[i]);
                 i++;
                 left_max=Math.max(left_max,height[i]);
