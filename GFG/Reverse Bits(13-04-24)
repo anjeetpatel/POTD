@@ -34,6 +34,7 @@ Constraints:
 0  <=  x  <  232
 
 JAVA SOLUTION:-
+
 class Solution {
     static Long reversedBits(Long x) {
         // code here
