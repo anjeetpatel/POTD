@@ -1,0 +1,70 @@
+There is a standard numeric keypad on a mobile phone. You can only press the current button or buttons that are directly up, left, right, or down from it (for ex if you press 5, then pressing 2, 4, 6 & 8 are allowed). Diagonal movements and pressing the bottom row corner buttons (* and #) are prohibited.
+Given a number n, find the number of possible unique sequences of length n that you can create by pressing buttons. You can start from any digit.
+Examples
+Input: n = 1
+Output: 10
+Explanation: Number of possible numbers are 10 (0, 1, 2, 3, 4, 5, 6, 7, 8, 9)  
+Input: n = 2
+Output: 36
+Explanation: Possible numbers: 00, 08, 11, 12, 14, 22, 21, 23, 25 and so on. If we start with 0, valid numbers will be 00, 08 (count: 2). If we start with 1, valid numbers will be 11, 12, 14 (count: 3). If we start with 2, valid numbers  will be 22, 21, 23,25 (count: 4). If we start with 3, valid numbers will be 33, 32, 36 (count: 3). If we start with 4, valid numbers will be 44,41,45,47 (count: 4). If we start with 5, valid numbers will be 55,54,52,56,58 (count: 5) and so on.
+Expected Time Complexity: O(n)
+Expected Auxiliary Space: O(n)
+
+Constraints:
+1 ≤ n ≤ 25
+
+//java solution
+class Solution {
+    int[][] dirs = {{-1, 0}, {1,0}, {0,1}, {0,-1}, {0,0}};
+    Long dp[][][] = new Long[4][3][26];
+    StringBuilder sb = new StringBuilder();
+    
+    public long getCount(int n) {
+        int[][] mat = new int[4][3];
+       
+        int k = 1;
+        long ans = 0;
+         mat[3][0] = -1;
+        mat[3][2] = -1;
+        
+        for(int i=0; i<3; i++)
+        {
+            for(int j=0; j<3; j++)
+            {
+              //System.out.println(sb.append(mat[i][j]));
+                ans += solve(i, j, n-1, mat);
+                //sb.deleteCharAt(sb.length()-1);
+            }
+            
+        }
+        ans += solve(3,1,n-1,mat);
+        return ans;
+    }
+    
+    public long solve(int i, int j, int n, int[][] mat)
+    {
+        if(n == 0) 
+        {
+           // System.out.println(sb);
+            return 1;
+        }
+        
+        if(dp[i][j][n] != null)
+        return dp[i][j][n];
+        
+        long ans = 0;
+        
+        for(int[] dir: dirs)
+        {
+            int nr = i+dir[0], nc = j+dir[1];
+            if(nr>=0 && nr<4 && nc>=0 && nc<3 && mat[nr][nc] != -1)
+            {
+             //   sb.append(mat[nr][nc]);
+                ans += solve(nr, nc, n-1, mat);
+               // sb.deleteCharAt(sb.length()-1);
+            }
+            
+        }
+        return dp[i][j][n] = ans;
+    }
+}
