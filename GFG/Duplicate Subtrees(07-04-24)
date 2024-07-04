@@ -1,0 +1,61 @@
+Given a binary tree, your task is to find all duplicate subtrees from the given binary tree.
+
+Note:  Return the root of each tree in the form of a list array & the driver code will print the tree in pre-order tree traversal in lexicographically increasing order.
+
+Examples:
+
+Input : 
+ 
+Output: 2 4   
+        4
+Explanation: The above tree have two duplicate subtrees.i.e 
+  2
+ /
+4  and 4. Therefore, you need to return the above tree root in the form of a list.
+Input:     5
+          / \
+         4   6
+        / \
+       3   4
+          / \
+         3   6
+Output: 4 3
+        6
+Explanation: In the above tree, there are two duplicate subtrees.i.e
+  4
+ /
+3   and 6. Therefore, you need to return the above subtrees root in the form of a list.
+Expected Time Complexity: O(n)
+Expected Space Complexity: O(n)
+
+Constraints:
+1<= size of binary tree <=100
+
+//java solution
+class Solution {
+    private Map<String, Integer> map;
+    private List<Node> result;
+    
+    public List<Node> printAllDups(Node root) {
+        map = new HashMap<>();
+        result = new ArrayList<>();
+        serialize(root);
+        return result;
+    }
+    
+    private String serialize(Node node) {
+        if (node == null) {
+            return "#";
+        }
+        
+        String serial = node.data + "," + serialize(node.left) + "," + serialize(node.right);
+        
+        map.put(serial, map.getOrDefault(serial, 0) + 1);
+        
+        if (map.get(serial) == 2) {
+            result.add(node);
+        }
+        
+        return serial;
+    }
+}
