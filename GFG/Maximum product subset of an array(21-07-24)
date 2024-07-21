@@ -1,0 +1,89 @@
+Given an array arr. The task is to find and return the maximum product possible with the subset of elements present in the array.
+
+Note:
+
+The maximum product can be a single element also.
+Since the product can be large, return it modulo 109 + 7.
+Examples:
+
+Input: arr[] = [-1, 0, -2, 4, 3]
+Output: 24
+Explanation: Maximum product will be ( -1 * -2 * 4 * 3 ) = 24
+Input: arr[] = [-1, 0]
+Output: 0
+Explanation: Maximum product will be ( -1 * 0) = 0
+Input: arr[] = [5]
+Output: 5
+Explanation: Maximum product will be 5.
+Expected Time Complexity: O(n)
+Expected Auxiliary Space: O(1)
+
+Constraints:
+1 <= arr.size() <= 2 * 104
+-10 <= arr[i] <= 10
+
+//java solution
+class Solution {
+    public long findMaxProduct(List<Integer> arr) {
+        long mod = 1000000007;
+        long product = 1;
+        int maxNeg = Integer.MIN_VALUE;
+        int minPos = Integer.MAX_VALUE;
+        int countNeg = 0;
+        int countZero = 0;
+        int countPos = 0;
+
+        for (int num : arr) {
+            if (num == 0) {
+                countZero++;
+                continue;
+            }
+            if (num < 0) {
+                countNeg++;
+                maxNeg = Math.max(maxNeg, num);
+            } else {
+                countPos++;
+                minPos = Math.min(minPos, num);
+            }
+
+            product = (product * num) % mod;
+            if (product < 0) product += mod;
+        }
+
+        if (arr.size() == 1) {
+            return arr.get(0);
+        }
+
+        if (countZero == arr.size()) {
+            return 0;
+        }
+
+        if (countNeg % 2 != 0) {
+            if (countNeg == 1 && countZero > 0 && countPos == 0) {
+                return 0; // Case when there's only one negative number and the rest are zeros
+            }
+            product = (product * modInverse(maxNeg, mod)) % mod;
+            if (product < 0) product += mod;
+        }
+
+        return product;
+    }
+
+    private long modInverse(int a, long mod) {
+        return power(a, mod - 2, mod);
+    }
+
+    private long power(int x, long y, long mod) {
+        if (y == 0)
+            return 1;
+        long p = power(x, y / 2, mod) % mod;
+        p = (p * p) % mod;
+        
+        if (y % 2 == 0)
+            return p;
+        else
+            return (x * p) % mod;
+    }
+}
+ 
+
