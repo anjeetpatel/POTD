@@ -1,0 +1,44 @@
+Given an array of strings arr. Return the longest common prefix among all strings present in the array. If there's no prefix common in all the strings, return "-1".
+
+Examples :
+
+Input: arr[] = ["geeksforgeeks", "geeks", "geek", "geezer"]
+Output: gee
+Explanation: "gee" is the longest common prefix in all the given strings.
+Input: arr[] = ["hello", "world"]
+Output: -1
+Explanation: There's no common prefix in the given strings.
+Expected Time Complexity: O(n*min(|arri|))
+Expected Space Complexity: O(min(|arri|))
+
+Constraints:
+1 ≤ |arr| ≤ 103
+1 ≤ |arr[i]| ≤ 103
+
+//java solution
+
+class Solution {
+public String longestCommonPrefix(String arr[]) {
+        int min=Integer.MAX_VALUE,end=-1;
+        for(String x:arr){
+            if(x.length()<min) min=x.length();
+        }
+        int low=0,high=min-1;
+        while(low<=high){
+            int mid=(low+high)/2;
+            if(solve(mid,arr)){
+                end=mid;
+                low=mid+1;
+            } else high=mid-1;
+        }
+        if(end==-1) return String.valueOf(end);
+        return arr[0].substring(0,end+1);
+    }
+    private boolean solve(int ind,String arr[]){
+        String curr=arr[0].substring(0,ind+1);
+        for(int i=1;i<arr.length;i++){
+            if(!arr[i].startsWith(curr)) return false;
+        }
+        return true;
+    }
+}
