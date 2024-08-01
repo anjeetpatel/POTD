@@ -1,3 +1,4 @@
+//java solution
 class Solution {
     public int countSeniors(String[] details) {
         int seniorCount = 0;
