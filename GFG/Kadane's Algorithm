@@ -1,0 +1,16 @@
+//CPP SOLUTION
+class Solution{
+public:
+int maxSubarraySum(vactor<int> &arr){
+int current_max = arr[0];
+        int global_max = arr[0];
+        
+        for (int i = 1; i < arr.size(); i++) {
+          
+            current_max = max(arr[i], current_max + arr[i]);
+            global_max = max(global_max, current_max);
+        }
+        
+        return global_max;
+}
+};
