@@ -1,0 +1,11 @@
+//cpp code
+
+
+// User function Template for Java
+
+class Solution {
+   long findNth(long N){
+       //convert to base 9, that's all there's to it.\
+       return Long.parseLong(Long.toString(N,9));       
+   }
+}
