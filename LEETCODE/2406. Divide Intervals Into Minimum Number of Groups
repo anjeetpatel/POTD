@@ -1,0 +1,57 @@
+//approach 1 cpp
+
+// Approach - 01 [ Set ]
+class Solution {
+public:
+    int minGroups(vector<vector<int>>& inter) {
+        int n = inter.size();
+        int ans = 0;
+
+        // Sort based on interval starting value
+        sort(inter.begin(), inter.end());
+
+        // UNCOMMENT BELOW TO SEE HOW SORTED VECTOR LOOKS
+        // cout<<"intervals = [";
+        // int cnt=0;
+        // for(auto& val:inter){
+        //     cout<<"["<<val[0]<<","<<val[1]<<"]";
+        //     cnt++;
+        //     if(cnt!=inter.size()){cout<<",";}
+        // }
+        // cout<<"]";
+
+
+        // we used multiset because ending interval 
+        // might repeats
+        multiset<int> st;
+
+        for(int i = 0; i < n; i++) {
+            int l = inter[i][0];
+            int r = inter[i][1];
+
+            if(st.empty()) {
+                st.insert(r);
+            }
+            else {
+                // // Find the first element greater than or equal to l
+                // auto it = st.lower_bound(l);
+                
+                // Move iterator to the largest value strictly less than l
+                if (l > *st.begin()) {
+                    st.erase(st.begin());
+                    st.insert(r);
+                }
+                else{
+                    st.insert(r);
+                }
+
+                // Insert the current interval's end time
+            }
+        }
+
+        // The size of the set gives the number of groups
+        return st.size();
+    }
+};
+
+
