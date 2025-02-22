@@ -1,0 +1,50 @@
+//cpp code
+
+class Solution {
+public:
+    TreeNode* recoverFromPreorder(std::string s) {
+        std::unordered_map<int, TreeNode*> map;
+        int num = 0;
+        int idx = 0;
+        // while loop to handle multiple digit Integer value.
+        while (idx < s.length() && isdigit(s[idx])) {
+            num = (num * 10) + (s[idx] - '0');
+            idx++;
+        }
+        map[0] = new TreeNode(num);
+        // Calling the function with the idx of the first dash after the rootNode.
+        helper(idx, s, map);
+        // returning the root
+        return map[0];
+    }
+
+    static void helper(int idx, std::string s, std::unordered_map<int, TreeNode*>& map) {
+        // While loop to iterate the entire length of the string.
+        while (idx < s.length()) {
+            // While loop to count the no. of. dashes.
+            int dash = 0;
+            while (idx < s.length() && s[idx] == '-') {
+                dash++;
+                idx++;
+            }
+            // While loop to handle multiple digit Integer values.
+            int num = 0;
+            while (idx < s.length() && isdigit(s[idx])) {
+                num = (num * 10) + (s[idx] - '0');
+                idx++;
+            }
+            // Getting the parent node from the map.
+            TreeNode* node = map[dash - 1];
+            // Making the obtained number to a TreeNode
+            TreeNode* val = new TreeNode(num);
+            // Storing the dashCount with its corresponding TreeNode
+            map[dash] = val;
+            // Checking the leftNode of the parent is empty to add the current node if so then storing it on the right node.
+            if (node->left == nullptr) {
+                node->left = val;
+            } else {
+                node->right = val;
+            }
+        }
+    }
+};
