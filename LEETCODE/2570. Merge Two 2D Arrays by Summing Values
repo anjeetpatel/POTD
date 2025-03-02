@@ -1,0 +1,37 @@
+//cpp code
+class Solution {
+public:
+    vector<vector<int>> mergeArrays(vector<vector<int>>& nums1, vector<vector<int>>& nums2) {
+        vector<vector<int>> res;
+        int l=0;
+        int r=0;
+        int n1 = nums1.size() , n2 = nums2.size();
+        while(l<n1 && r<n2){
+            int id1 = nums1[l][0], id2=nums2[r][0];
+            int val1 = nums1[l][1], val2=nums2[r][1];
+            if(id1==id2){
+                res.push_back({id1,val1+val2});
+                l++,r++;
+            }else if(id1<id2){
+                res.push_back({id1,val1});
+                l++;
+            }else{
+                res.push_back({id2,val2});
+                r++;
+            }
+        }
+        while(l<n1){
+            int id1 = nums1[l][0];
+            int val1 = nums1[l][1];
+            res.push_back({id1,val1});
+            l++;
+        }
+        while(r<n2){
+            int id2 = nums2[r][0];
+            int val2 = nums2[r][1];
+            res.push_back({id2,val2});
+            r++;
+        }
+        return res;
+    }
+};
