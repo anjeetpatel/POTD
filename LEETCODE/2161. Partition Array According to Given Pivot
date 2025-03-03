@@ -1,0 +1,34 @@
+//cpp code
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <climits>
+using namespace std;
+int maxSub(vector<int>& arr, int x){
+    int maxi = INT_MIN, currSum = 0;
+    bool ValidSub = false;
+    
+    for(int num: arr){
+        if(num == x){
+            currSum = 0;
+        }else{
+            ValidSub = true;
+            currSum = max(num, currSum + num);
+            maxi = max(maxi, currSum);
+        }
+    }
+    return ValidSub ? maxi : -1;
+}
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    int n, x;
+    cin>>n>>x;
+    vector<int> arr(n);
+    for(int i = 0;i<n;i++){
+        cin>>arr[i];
+    }
+    cout<<maxSub(arr, x)<<endl;
+    return 0;
+}
