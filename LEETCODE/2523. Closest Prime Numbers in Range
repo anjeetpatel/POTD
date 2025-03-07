@@ -1,0 +1,36 @@
+// cpp code
+class Solution {
+public:
+    bool prime(int n){
+        if(n<=1) return false;
+        if(n<=3) return true;
+        if(n%2==0||n%3==0) return false;
+        for(int i=5; i*i<=n;i+=6){
+            if(n%i==0 || n%(i+2)==0) return false;
+        }
+        return true;
+    }
+    vector<int> closestPrimes(int left, int right) {
+        vector<int> primes;
+        vector<int> res={-1,-1};
+        if(left==right) return res;
+        for(int i=left; i<=right; i++){
+            if(prime(i)) primes.push_back(i);
+        }
+        for(auto it:primes){
+            cout<<it<<" ";
+        }
+        int mindiff=INT_MAX;
+        int n=primes.size();
+        if(n<=1) return res;
+        for(int i=0;i<n-1;i++){
+            int diff = primes[i+1]-primes[i];
+            if(diff<mindiff){
+                mindiff = diff;
+                res[0]=primes[i];
+                res[1]=primes[i+1];
+            }
+        }
+        return res;
+    }
+};
