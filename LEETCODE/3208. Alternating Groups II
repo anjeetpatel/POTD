@@ -1,0 +1,22 @@
+//cpp code
+class Solution {
+public:
+    int numberOfAlternatingGroups(vector<int>& colors, int k) {
+        int n = colors.size();
+        int cnt = 0;
+        int validPairs = 0;
+        for (int i = 0; i < k - 1; i++) {
+            if (colors[i] != colors[i + 1]) 
+                validPairs++;
+        }
+        if (validPairs == k - 1) cnt++;
+        for (int i = 1; i < n; i++) {
+            if (colors[i - 1] != colors[(i - 1 + 1) % n]) 
+                validPairs--;
+            if (colors[(i + k - 2) % n] != colors[(i + k - 1) % n]) 
+                validPairs++;
+            if (validPairs == k - 1) cnt++;
+        }
+        return cnt;
+    }
+};
