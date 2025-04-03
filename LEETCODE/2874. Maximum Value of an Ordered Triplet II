@@ -1,0 +1,17 @@
+//cpp code
+
+class Solution {
+public:
+    long long maximumTripletValue(vector<int>& nums) {
+        long long maxcurr = 0;
+        long long maxdiff = 0;
+        long long maxres = 0;
+
+        for (int i = 0; i < nums.size(); i++) {
+            maxres = max(maxres, maxdiff * nums[i]);
+            maxdiff = max(maxdiff, maxcurr - nums[i]);
+            maxcurr = max(maxcurr, (long long)nums[i]);
+        }
+        return maxres;
+    }
+};
